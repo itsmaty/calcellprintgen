@@ -1,0 +1,6 @@
+Eigene Schriftdateien (TTF, OTF, TTC, WOFF) hier hineinlegen, wenn sie nicht im System
+installiert sind. Sie erscheinen in der App unter „Auf diesem PC“ (nach „Neu einlesen“ im
+Schriftwähler oder einem Neustart von `npm run dev`).
+
+Installierte Schriften des Rechners werden automatisch gefunden – dafür ist dieser Ordner
+nicht nötig. Der Inhalt dieses Ordners wird nicht ins Git-Repository aufgenommen.

@@ -1,0 +1,1418 @@
+[
+  {
+    "id": "inter",
+    "family": "Inter",
+    "category": "sans",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "inter/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "inter/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "inter/500-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "inter/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "inter/700-normal.woff"
+      },
+      {
+        "weight": 800,
+        "style": "normal",
+        "file": "inter/800-normal.woff"
+      },
+      {
+        "weight": 900,
+        "style": "normal",
+        "file": "inter/900-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "roboto",
+    "family": "Roboto",
+    "category": "sans",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "roboto/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "roboto/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "roboto/500-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "roboto/700-normal.woff"
+      },
+      {
+        "weight": 900,
+        "style": "normal",
+        "file": "roboto/900-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "italic",
+        "file": "roboto/400-italic.woff"
+      }
+    ]
+  },
+  {
+    "id": "open-sans",
+    "family": "Open Sans",
+    "category": "sans",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "open-sans/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "open-sans/400-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "open-sans/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "open-sans/700-normal.woff"
+      },
+      {
+        "weight": 800,
+        "style": "normal",
+        "file": "open-sans/800-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "montserrat",
+    "family": "Montserrat",
+    "category": "sans",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "montserrat/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "montserrat/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "montserrat/500-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "montserrat/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "montserrat/700-normal.woff"
+      },
+      {
+        "weight": 800,
+        "style": "normal",
+        "file": "montserrat/800-normal.woff"
+      },
+      {
+        "weight": 900,
+        "style": "normal",
+        "file": "montserrat/900-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "italic",
+        "file": "montserrat/400-italic.woff"
+      },
+      {
+        "weight": 700,
+        "style": "italic",
+        "file": "montserrat/700-italic.woff"
+      }
+    ]
+  },
+  {
+    "id": "poppins",
+    "family": "Poppins",
+    "category": "sans",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "poppins/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "poppins/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "poppins/500-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "poppins/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "poppins/700-normal.woff"
+      },
+      {
+        "weight": 800,
+        "style": "normal",
+        "file": "poppins/800-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "lato",
+    "family": "Lato",
+    "category": "sans",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "lato/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "lato/400-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "lato/700-normal.woff"
+      },
+      {
+        "weight": 900,
+        "style": "normal",
+        "file": "lato/900-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "italic",
+        "file": "lato/400-italic.woff"
+      }
+    ]
+  },
+  {
+    "id": "raleway",
+    "family": "Raleway",
+    "category": "sans",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "raleway/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "raleway/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "raleway/500-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "raleway/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "raleway/700-normal.woff"
+      },
+      {
+        "weight": 800,
+        "style": "normal",
+        "file": "raleway/800-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "nunito",
+    "family": "Nunito",
+    "category": "sans",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "nunito/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "nunito/400-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "nunito/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "nunito/700-normal.woff"
+      },
+      {
+        "weight": 800,
+        "style": "normal",
+        "file": "nunito/800-normal.woff"
+      },
+      {
+        "weight": 900,
+        "style": "normal",
+        "file": "nunito/900-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "work-sans",
+    "family": "Work Sans",
+    "category": "sans",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "work-sans/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "work-sans/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "work-sans/500-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "work-sans/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "work-sans/700-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "dm-sans",
+    "family": "DM Sans",
+    "category": "sans",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "dm-sans/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "dm-sans/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "dm-sans/500-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "dm-sans/700-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "source-sans-3",
+    "family": "Source Sans 3",
+    "category": "sans",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "source-sans-3/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "source-sans-3/400-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "source-sans-3/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "source-sans-3/700-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "ibm-plex-sans",
+    "family": "IBM Plex Sans",
+    "category": "sans",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "ibm-plex-sans/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "ibm-plex-sans/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "ibm-plex-sans/500-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "ibm-plex-sans/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "ibm-plex-sans/700-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "josefin-sans",
+    "family": "Josefin Sans",
+    "category": "sans",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "josefin-sans/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "josefin-sans/400-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "josefin-sans/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "josefin-sans/700-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "quicksand",
+    "family": "Quicksand",
+    "category": "sans",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "quicksand/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "quicksand/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "quicksand/500-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "quicksand/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "quicksand/700-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "outfit",
+    "family": "Outfit",
+    "category": "sans",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "outfit/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "outfit/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "outfit/500-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "outfit/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "outfit/700-normal.woff"
+      },
+      {
+        "weight": 800,
+        "style": "normal",
+        "file": "outfit/800-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "space-grotesk",
+    "family": "Space Grotesk",
+    "category": "sans",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "space-grotesk/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "space-grotesk/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "space-grotesk/500-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "space-grotesk/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "space-grotesk/700-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "manrope",
+    "family": "Manrope",
+    "category": "sans",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "manrope/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "manrope/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "manrope/500-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "manrope/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "manrope/700-normal.woff"
+      },
+      {
+        "weight": 800,
+        "style": "normal",
+        "file": "manrope/800-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "oswald",
+    "family": "Oswald",
+    "category": "sans",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "oswald/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "oswald/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "oswald/500-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "oswald/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "oswald/700-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "barlow-condensed",
+    "family": "Barlow Condensed",
+    "category": "sans",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "barlow-condensed/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "barlow-condensed/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "barlow-condensed/500-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "barlow-condensed/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "barlow-condensed/700-normal.woff"
+      },
+      {
+        "weight": 800,
+        "style": "normal",
+        "file": "barlow-condensed/800-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "comfortaa",
+    "family": "Comfortaa",
+    "category": "sans",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "comfortaa/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "comfortaa/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "comfortaa/500-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "comfortaa/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "comfortaa/700-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "playfair-display",
+    "family": "Playfair Display",
+    "category": "serif",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "playfair-display/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "playfair-display/500-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "playfair-display/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "playfair-display/700-normal.woff"
+      },
+      {
+        "weight": 800,
+        "style": "normal",
+        "file": "playfair-display/800-normal.woff"
+      },
+      {
+        "weight": 900,
+        "style": "normal",
+        "file": "playfair-display/900-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "italic",
+        "file": "playfair-display/400-italic.woff"
+      },
+      {
+        "weight": 700,
+        "style": "italic",
+        "file": "playfair-display/700-italic.woff"
+      }
+    ]
+  },
+  {
+    "id": "lora",
+    "family": "Lora",
+    "category": "serif",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "lora/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "lora/500-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "lora/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "lora/700-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "italic",
+        "file": "lora/400-italic.woff"
+      }
+    ]
+  },
+  {
+    "id": "merriweather",
+    "family": "Merriweather",
+    "category": "serif",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "merriweather/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "merriweather/400-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "merriweather/700-normal.woff"
+      },
+      {
+        "weight": 900,
+        "style": "normal",
+        "file": "merriweather/900-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "italic",
+        "file": "merriweather/400-italic.woff"
+      }
+    ]
+  },
+  {
+    "id": "eb-garamond",
+    "family": "EB Garamond",
+    "category": "serif",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "eb-garamond/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "eb-garamond/500-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "eb-garamond/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "eb-garamond/700-normal.woff"
+      },
+      {
+        "weight": 800,
+        "style": "normal",
+        "file": "eb-garamond/800-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "italic",
+        "file": "eb-garamond/400-italic.woff"
+      }
+    ]
+  },
+  {
+    "id": "cormorant-garamond",
+    "family": "Cormorant Garamond",
+    "category": "serif",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "cormorant-garamond/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "cormorant-garamond/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "cormorant-garamond/500-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "cormorant-garamond/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "cormorant-garamond/700-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "italic",
+        "file": "cormorant-garamond/400-italic.woff"
+      }
+    ]
+  },
+  {
+    "id": "libre-baskerville",
+    "family": "Libre Baskerville",
+    "category": "serif",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "libre-baskerville/400-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "libre-baskerville/700-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "italic",
+        "file": "libre-baskerville/400-italic.woff"
+      }
+    ]
+  },
+  {
+    "id": "bodoni-moda",
+    "family": "Bodoni Moda",
+    "category": "serif",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "bodoni-moda/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "bodoni-moda/500-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "bodoni-moda/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "bodoni-moda/700-normal.woff"
+      },
+      {
+        "weight": 800,
+        "style": "normal",
+        "file": "bodoni-moda/800-normal.woff"
+      },
+      {
+        "weight": 900,
+        "style": "normal",
+        "file": "bodoni-moda/900-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "italic",
+        "file": "bodoni-moda/400-italic.woff"
+      }
+    ]
+  },
+  {
+    "id": "fraunces",
+    "family": "Fraunces",
+    "category": "serif",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "fraunces/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "fraunces/400-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "fraunces/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "fraunces/700-normal.woff"
+      },
+      {
+        "weight": 900,
+        "style": "normal",
+        "file": "fraunces/900-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "italic",
+        "file": "fraunces/400-italic.woff"
+      }
+    ]
+  },
+  {
+    "id": "dm-serif-display",
+    "family": "DM Serif Display",
+    "category": "serif",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "dm-serif-display/400-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "italic",
+        "file": "dm-serif-display/400-italic.woff"
+      }
+    ]
+  },
+  {
+    "id": "roboto-slab",
+    "family": "Roboto Slab",
+    "category": "serif",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "roboto-slab/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "roboto-slab/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "roboto-slab/500-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "roboto-slab/700-normal.woff"
+      },
+      {
+        "weight": 900,
+        "style": "normal",
+        "file": "roboto-slab/900-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "abril-fatface",
+    "family": "Abril Fatface",
+    "category": "serif",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "abril-fatface/400-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "bebas-neue",
+    "family": "Bebas Neue",
+    "category": "display",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "bebas-neue/400-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "anton",
+    "family": "Anton",
+    "category": "display",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "anton/400-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "staatliches",
+    "family": "Staatliches",
+    "category": "display",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "staatliches/400-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "archivo-black",
+    "family": "Archivo Black",
+    "category": "display",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "archivo-black/400-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "alfa-slab-one",
+    "family": "Alfa Slab One",
+    "category": "display",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "alfa-slab-one/400-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "righteous",
+    "family": "Righteous",
+    "category": "display",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "righteous/400-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "lobster",
+    "family": "Lobster",
+    "category": "display",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "lobster/400-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "fredoka",
+    "family": "Fredoka",
+    "category": "display",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "fredoka/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "fredoka/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "fredoka/500-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "fredoka/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "fredoka/700-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "syne",
+    "family": "Syne",
+    "category": "display",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "syne/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "syne/500-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "syne/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "syne/700-normal.woff"
+      },
+      {
+        "weight": 800,
+        "style": "normal",
+        "file": "syne/800-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "caveat",
+    "family": "Caveat",
+    "category": "handwriting",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "caveat/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "caveat/500-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "caveat/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "caveat/700-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "dancing-script",
+    "family": "Dancing Script",
+    "category": "handwriting",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "dancing-script/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "dancing-script/500-normal.woff"
+      },
+      {
+        "weight": 600,
+        "style": "normal",
+        "file": "dancing-script/600-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "dancing-script/700-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "pacifico",
+    "family": "Pacifico",
+    "category": "handwriting",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "pacifico/400-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "amatic-sc",
+    "family": "Amatic SC",
+    "category": "handwriting",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "amatic-sc/400-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "amatic-sc/700-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "permanent-marker",
+    "family": "Permanent Marker",
+    "category": "handwriting",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "permanent-marker/400-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "shadows-into-light",
+    "family": "Shadows Into Light",
+    "category": "handwriting",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "shadows-into-light/400-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "great-vibes",
+    "family": "Great Vibes",
+    "category": "handwriting",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "great-vibes/400-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "satisfy",
+    "family": "Satisfy",
+    "category": "handwriting",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "satisfy/400-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "patrick-hand",
+    "family": "Patrick Hand",
+    "category": "handwriting",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "patrick-hand/400-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "jetbrains-mono",
+    "family": "JetBrains Mono",
+    "category": "mono",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "jetbrains-mono/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "jetbrains-mono/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "jetbrains-mono/500-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "jetbrains-mono/700-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "space-mono",
+    "family": "Space Mono",
+    "category": "mono",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "space-mono/400-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "space-mono/700-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "ibm-plex-mono",
+    "family": "IBM Plex Mono",
+    "category": "mono",
+    "variants": [
+      {
+        "weight": 300,
+        "style": "normal",
+        "file": "ibm-plex-mono/300-normal.woff"
+      },
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "ibm-plex-mono/400-normal.woff"
+      },
+      {
+        "weight": 500,
+        "style": "normal",
+        "file": "ibm-plex-mono/500-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "ibm-plex-mono/700-normal.woff"
+      }
+    ]
+  },
+  {
+    "id": "courier-prime",
+    "family": "Courier Prime",
+    "category": "mono",
+    "variants": [
+      {
+        "weight": 400,
+        "style": "normal",
+        "file": "courier-prime/400-normal.woff"
+      },
+      {
+        "weight": 700,
+        "style": "normal",
+        "file": "courier-prime/700-normal.woff"
+      }
+    ]
+  }
+]
