@@ -9,11 +9,8 @@ root=/usr/share/nginx/html
 site_id=$(printf '%s' "${RYBBIT_SITE_ID:-}" | tr -cd 'A-Za-z0-9_-')
 script_url="${RYBBIT_SCRIPT_URL:-https://app.rybbit.io/api/script.js}"
 if [ -n "$site_id" ] && printf '%s' "$script_url" | grep -Eq '^https?://[^"<> ]+$'; then
-  case "$script_url" in
-    *\?*) sep='&' ;;
-    *) sep='?' ;;
-  esac
-  tag="<script src=\"${script_url}${sep}siteId=${site_id}\" defer></script>"
+  # wie das Snippet aus Rybbit: Das Script liest die Site-ID aus data-site-id
+  tag="<script src=\"${script_url}\" data-site-id=\"${site_id}\" defer></script>"
   escaped=$(printf '%s' "$tag" | sed -e 's/[&|\\]/\\&/g')
   find "$root" -name '*.html' | while read -r f; do
     if grep -q '<!--ANALYTICS-->' "$f"; then

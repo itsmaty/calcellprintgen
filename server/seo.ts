@@ -94,9 +94,8 @@ function analyticsTag(opts: SeoOptions): string {
   // Ohne Werte beim Build bleibt die Markierung stehen: Der Docker-Container setzt das Script dann beim
   // Start aus den Umgebungsvariablen RYBBIT_SITE_ID / RYBBIT_SCRIPT_URL ein (deploy/15-rybbit.envsh).
   if (!opts.rybbitScriptUrl || !opts.rybbitSiteId) return '<!--ANALYTICS-->';
-  const sep = opts.rybbitScriptUrl.includes('?') ? '&' : '?';
-  const src = `${opts.rybbitScriptUrl}${sep}siteId=${encodeURIComponent(opts.rybbitSiteId)}`;
-  return `<script src="${escapeHtml(src)}" defer></script>`;
+  // wie das Snippet aus Rybbit: Das Script liest die Site-ID aus data-site-id
+  return `<script src="${escapeHtml(opts.rybbitScriptUrl)}" data-site-id="${escapeHtml(opts.rybbitSiteId)}" defer></script>`;
 }
 
 export function seo(options: SeoOptions): Plugin {

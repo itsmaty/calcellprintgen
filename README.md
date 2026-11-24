@@ -159,7 +159,7 @@ Der Container lauscht auf `127.0.0.1:8080`. Für HTTPS davor einen Reverse-Proxy
 ## Statistik mit Rybbit
 
 Rybbit ist cookielos. Im Rybbit-Dashboard (Cloud oder selbst gehostet) eine Website anlegen und die Site-ID
-(Wert von `data-site-id` bzw. `siteId` im Tracking-Snippet) eintragen – als Umgebungsvariable des Containers
+(Wert von `data-site-id` im Tracking-Snippet) eintragen – als Umgebungsvariable des Containers
 (z. B. Dokploy „Environment Settings“, wirkt beim Start), als Build-Argument oder in `.env.production`. Das Script wird nur im Produktions-Build eingebunden – nicht
 beim Entwickeln und nicht in der Einzeldatei. Die Content-Security-Policy im Docker-Image erlaubt die
 Rybbit-Domain automatisch.
