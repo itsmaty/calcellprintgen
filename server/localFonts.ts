@@ -1,10 +1,11 @@
 // Vite-Plugin: stellt die auf diesem Rechner installierten Schriften (und den Projektordner
-// „lokale-schriften/“) der App zur Verfügung – im Dev-Server und in `vite preview`.
+// „lokale-schriften/“) der App zur Verfügung – NUR im Dev-Server (`npm run dev`).
+// Im Produktions-Build und auf dem Server gibt es diesen Endpunkt nicht.
 //
 //   GET /__local-fonts/list[?refresh=1]  → Liste aller Schnitte (Familie, Stil, Gewicht …)
 //   GET /__local-fonts/font/<id>         → Schriftdatei (bei Collections nur der eine Schnitt)
 //
-// Antwortet nur auf Anfragen vom eigenen Rechner (localhost).
+// Antwortet nur auf direkte Anfragen vom eigenen Rechner (localhost, ohne Proxy davor).
 
 import type { Plugin } from 'vite';
 import type { IncomingMessage, ServerResponse } from 'node:http';
@@ -277,6 +278,8 @@ async function extractFromCollection(path: string, index: number): Promise<Buffe
 }
 
 function isLocalRequest(req: IncomingMessage): boolean {
+  // Hinter einem Reverse-Proxy kämen fremde Anfragen ebenfalls „von localhost“ – dann ablehnen.
+  if (req.headers['x-forwarded-for'] || req.headers['forwarded'] || req.headers['x-real-ip']) return false;
   const addr = req.socket.remoteAddress ?? '';
   return addr === '127.0.0.1' || addr === '::1' || addr === '::ffff:127.0.0.1';
 }
@@ -345,10 +348,8 @@ export function localFonts(projectDir: string): Plugin {
 
   return {
     name: 'calcell-local-fonts',
+    apply: 'serve',
     configureServer(server) {
-      server.middlewares.use((req, res, next) => void handler(req, res, next));
-    },
-    configurePreviewServer(server) {
       server.middlewares.use((req, res, next) => void handler(req, res, next));
     },
   };

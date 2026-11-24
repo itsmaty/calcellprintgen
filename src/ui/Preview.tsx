@@ -2,10 +2,11 @@ import { memo, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSPr
 import type { Config } from '../config/types';
 import { renderMonth, type RenderedMonth, type YearContext } from '../render/month';
 import { pixelSize } from '../export/png';
-import { DEFAULT_MONTH_NAMES } from '../config/defaults';
 import { formatNumber } from './controls';
 import { clearBackdropPhoto, setBackdropPhoto, useBackdropPhoto } from './backdrop';
+import { track } from '../analytics';
 import { IconChevron, IconChevronLeft, IconClose, IconDownload, IconFit, IconImage, IconMinus, IconPlus } from './icons';
+import { t, UI_MONTHS } from '../i18n';
 
 const MM_TO_PX = 96 / 25.4;
 const ZOOMS = [0.25, 0.33, 0.5, 0.67, 0.75, 1, 1.25, 1.5, 2, 3, 4];
@@ -95,41 +96,41 @@ export function Preview(props: {
     <main className="stage">
       <div className="stage-toolbar">
         <div className="month-tabs">
-          <button type="button" className="icon-btn" onClick={() => props.onMonth((month + 11) % 12)} title="Vorheriger Monat (←)">
+          <button type="button" className="icon-btn" onClick={() => props.onMonth((month + 11) % 12)} title={t('Vorheriger Monat (←)')}>
             <IconChevronLeft size={16} />
           </button>
-          {DEFAULT_MONTH_NAMES.map((name, m) => (
+          {UI_MONTHS.map((name, m) => (
             <button type="button" key={m} className={`month-tab${m === month ? ' is-active' : ''}`} onClick={() => props.onMonth(m)}>
               {name.slice(0, 3)}
             </button>
           ))}
-          <button type="button" className="icon-btn" onClick={() => props.onMonth((month + 1) % 12)} title="Nächster Monat (→)">
+          <button type="button" className="icon-btn" onClick={() => props.onMonth((month + 1) % 12)} title={t('Nächster Monat (→)')}>
             <IconChevron size={16} />
           </button>
         </div>
         <div className="stage-tools">
           <div className="zoom">
-            <button type="button" className={`icon-btn${zoom === 'fit' ? ' is-active' : ''}`} onClick={() => setZoom('fit')} title="Einpassen">
+            <button type="button" className={`icon-btn${zoom === 'fit' ? ' is-active' : ''}`} onClick={() => setZoom('fit')} title={t('Einpassen')}>
               <IconFit size={15} />
             </button>
-            <button type="button" className="icon-btn" onClick={() => stepZoom(-1)} title="Verkleinern">
+            <button type="button" className="icon-btn" onClick={() => stepZoom(-1)} title={t('Verkleinern')}>
               <IconMinus size={15} />
             </button>
-            <button type="button" className="zoom-value" onClick={() => setZoom(1)} title="100 % = echte Druckgröße am Bildschirm">
+            <button type="button" className="zoom-value" onClick={() => setZoom(1)} title={t('100 % = echte Druckgröße am Bildschirm')}>
               {Math.round(scale * 100)} %
             </button>
-            <button type="button" className="icon-btn" onClick={() => stepZoom(1)} title="Vergrößern">
+            <button type="button" className="icon-btn" onClick={() => stepZoom(1)} title={t('Vergrößern')}>
               <IconPlus size={15} />
             </button>
           </div>
-          <div className="backdrop-switch" title="Hintergrund der Vorschau (wird nicht exportiert)">
+          <div className="backdrop-switch" title={t('Hintergrund der Vorschau (wird nicht exportiert)')}>
             {(['checker', 'white', 'dark'] as Backdrop[]).map((b) => (
               <button
                 type="button"
                 key={b}
                 className={`backdrop-btn is-${b}${backdrop === b ? ' is-active' : ''}`}
                 onClick={() => setBackdrop(b)}
-                title={{ checker: 'Transparenz zeigen', white: 'Weißes Papier', dark: 'Dunkel', photo: '' }[b]}
+                title={{ checker: t('Transparenz zeigen'), white: t('Weißes Papier'), dark: t('Dunkel'), photo: '' }[b]}
               />
             ))}
             <button
@@ -137,19 +138,19 @@ export function Preview(props: {
               className={`backdrop-btn is-photo${backdrop === 'photo' ? ' is-active' : ''}`}
               style={photo ? { backgroundImage: `url("${photo}")` } : undefined}
               onClick={() => (photo ? setBackdrop('photo') : choosePhoto())}
-              title={photo ? 'Eigenes Foto als Hintergrund' : 'Eigenes Foto als Hintergrund laden …'}
+              title={photo ? t('Eigenes Foto als Hintergrund') : t('Eigenes Foto als Hintergrund laden …')}
             >
               {!photo && <IconImage size={13} />}
             </button>
             {backdrop === 'photo' && (
               <>
                 <button type="button" className="link-btn" onClick={choosePhoto}>
-                  Foto ändern
+                  {t('Foto ändern')}
                 </button>
                 <button
                   type="button"
                   className="icon-btn is-tiny"
-                  title="Foto entfernen"
+                  title={t('Foto entfernen')}
                   onClick={() => {
                     clearBackdropPhoto();
                     setBackdrop('checker');
@@ -168,6 +169,7 @@ export function Preview(props: {
                 const f = e.target.files?.[0];
                 if (f) {
                   setBackdropPhoto(f);
+                  track('vorschau_foto');
                   setBackdrop('photo');
                 }
                 e.target.value = '';
@@ -175,11 +177,11 @@ export function Preview(props: {
             />
           </div>
           <div className="download-current">
-            <button type="button" className="btn btn-small" onClick={() => props.onDownload('png')} disabled={props.downloading} title="Diesen Monat als PNG speichern">
-              <IconDownload size={14} /> PNG
+            <button type="button" className="btn btn-small" onClick={() => props.onDownload('png')} disabled={props.downloading} title={t('Diesen Monat als PNG speichern')}>
+              <IconDownload size={14} /> {t('PNG')}
             </button>
-            <button type="button" className="btn btn-small" onClick={() => props.onDownload('svg')} disabled={props.downloading} title="Diesen Monat als SVG speichern">
-              <IconDownload size={14} /> SVG
+            <button type="button" className="btn btn-small" onClick={() => props.onDownload('svg')} disabled={props.downloading} title={t('Diesen Monat als SVG speichern')}>
+              <IconDownload size={14} /> {t('SVG')}
             </button>
           </div>
         </div>
@@ -187,21 +189,21 @@ export function Preview(props: {
       <div className="stage-canvas" ref={canvasRef}>
         <div className="stage-scroll">
           <div className={`paper is-${backdrop}`} style={{ width: naturalW * scale, height: naturalH * scale, ...backdropStyle(backdrop, photo) }}>
-            <img src={src} alt={`Vorschau ${DEFAULT_MONTH_NAMES[month]} ${cfg.general.year}`} draggable={false} />
+            <img src={src} alt={t('Vorschau {month} {year}', { month: UI_MONTHS[month], year: cfg.general.year })} draggable={false} />
           </div>
         </div>
         <div className="stage-info">
           <b>
-            {DEFAULT_MONTH_NAMES[month]} {cfg.general.year}
+            {UI_MONTHS[month]} {cfg.general.year}
           </b>
           <span>
-            {formatNumber(current.width, 1)} × {formatNumber(current.height, 1)} mm
+            {formatNumber(current.width, 1)} × {formatNumber(current.height, 1)} {t('mm')}
           </span>
           <span>
-            PNG {px.width} × {px.height} px · {cfg.output.dpi} dpi
+            {t('PNG')} {px.width} × {px.height} {t('px ·')} {cfg.output.dpi} {t('dpi')}
           </span>
           <span>
-            {current.geometry.rows} Wochen · Zelle {formatNumber(current.geometry.cellW, 1)} × {formatNumber(current.geometry.cellH, 1)} mm
+            {current.geometry.rows} {t('Wochen · Zelle')} {formatNumber(current.geometry.cellW, 1)} × {formatNumber(current.geometry.cellH, 1)} {t('mm')}
           </span>
         </div>
       </div>
@@ -227,7 +229,7 @@ const Thumbnails = memo(function Thumbnails(props: {
           <span className={`thumb-img is-${props.backdrop}`} style={style}>
             <img src={urls[m]} alt="" draggable={false} />
           </span>
-          <span className="thumb-label">{DEFAULT_MONTH_NAMES[m]}</span>
+          <span className="thumb-label">{UI_MONTHS[m]}</span>
         </button>
       ))}
     </div>

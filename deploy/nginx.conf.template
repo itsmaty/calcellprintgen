@@ -1,0 +1,52 @@
+# nginx-Konfiguration für MonthGrid. Wird beim Containerstart mit envsubst gefüllt (${RYBBIT_ORIGIN}).
+
+# Gehashte Dateien unter /assets/ ändern sich nie → ein Jahr cachen; HTML immer neu prüfen.
+map $uri $monthgrid_cache {
+    ~^/assets/                                   "public, max-age=31536000, immutable";
+    ~\.(png|svg|ico|webmanifest|txt|xml)$        "public, max-age=86400";
+    default                                      "no-cache";
+}
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name _;
+    root /usr/share/nginx/html;
+    index index.html;
+    charset utf-8;
+    server_tokens off;
+    # Weiterleitungen relativ (sonst http:// statt https:// hinter dem Reverse-Proxy)
+    absolute_redirect off;
+
+    gzip on;
+    gzip_vary on;
+    gzip_comp_level 6;
+    gzip_min_length 1024;
+    gzip_types text/css application/javascript image/svg+xml application/json application/manifest+json application/xml text/plain;
+
+    add_header Cache-Control $monthgrid_cache always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()" always;
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self' ${RYBBIT_ORIGIN}; connect-src 'self' ${RYBBIT_ORIGIN}; img-src 'self' data: blob:; font-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'" always;
+
+    # Doppelte Adressen vermeiden (gut für Suchmaschinen)
+    if ($request_uri ~ ^/index\.html$) {
+        return 301 /;
+    }
+    if ($request_uri ~ ^/(impressum|datenschutz)\.html$) {
+        return 301 /$1;
+    }
+    if ($request_uri ~ ^/en(/index\.html)?$) {
+        return 301 /en/;
+    }
+
+    location / {
+        try_files $uri $uri.html $uri/ =404;
+    }
+
+    error_page 404 /404.html;
+    location = /404.html {
+        internal;
+    }
+}

@@ -4,6 +4,8 @@ import { pad2 } from '../calendar/dates';
 import { applyCase, monthName } from '../calendar/locale';
 import { computeGeometry, renderMonth, type YearContext } from '../render/month';
 import { pixelSize, rasterizeSvg } from './png';
+import { t } from '../i18n';
+import { BRAND } from '../brand';
 
 export interface ExportFile {
   name: string;
@@ -80,7 +82,7 @@ export async function buildExportFiles(
     if (format === 'svg' || format === 'both') {
       onProgress?.({ done, total, label: `${label} (SVG)` });
       const r = renderMonth(ctx, m, { textMode: textAsPaths ? 'path' : 'text' });
-      const svg = `<?xml version="1.0" encoding="UTF-8"?>\n<!-- ${label} ${cfg.general.year} · ${r.width.toFixed(2)} × ${r.height.toFixed(2)} mm · erstellt mit CalCell PrintGen -->\n${r.svg}\n`;
+      const svg = `<?xml version="1.0" encoding="UTF-8"?>\n<!-- ${label} ${cfg.general.year} · ${r.width.toFixed(2)} × ${r.height.toFixed(2)} mm · ${BRAND} -->\n${r.svg}\n`;
       files.push({ name: `${base}.svg`, data: encoder.encode(svg), mime: 'image/svg+xml' });
       done += 1;
       await nextFrame();
@@ -96,7 +98,7 @@ export async function buildExportFiles(
       await nextFrame();
     }
   }
-  onProgress?.({ done: total, total, label: 'Fertig' });
+  onProgress?.({ done: total, total, label: t('Fertig') });
   return files;
 }
 

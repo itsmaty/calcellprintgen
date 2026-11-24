@@ -1,0 +1,17 @@
+#!/bin/sh
+# Ermittelt die Rybbit-Adresse für die Content-Security-Policy.
+# Reihenfolge: RYBBIT_ORIGIN (falls gesetzt) → Script-Tag in der gebauten index.html → RYBBIT_SCRIPT_URL.
+# So passt die CSP immer zur tatsächlich eingebundenen Statistik – egal, ob die Werte aus
+# .env.production oder aus Build-Argumenten (Dokploy, docker compose) stammen.
+if [ -z "${RYBBIT_ORIGIN:-}" ]; then
+  html=/usr/share/nginx/html/index.html
+  src=""
+  if [ -f "$html" ]; then
+    src=$(grep -o 'src="https\{0,1\}://[^"]*/api/script\.js[^"]*"' "$html" | head -n 1 | sed -e 's/^src="//' -e 's/"$//')
+  fi
+  [ -z "$src" ] && src="${RYBBIT_SCRIPT_URL:-}"
+  if [ -n "$src" ]; then
+    RYBBIT_ORIGIN=$(printf '%s' "$src" | sed -E 's#^(https?://[^/?#]+).*#\1#')
+  fi
+fi
+export RYBBIT_ORIGIN="${RYBBIT_ORIGIN:-}"

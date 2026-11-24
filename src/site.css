@@ -1,0 +1,227 @@
+/* Statische Inhalte unter der App (SEO-Text, FAQ, Fußzeile) und die Seiten Impressum/Datenschutz/404.
+   Bewusst eigenständig, damit alles auch ohne JavaScript lesbar und gestaltet ist. */
+
+:root {
+  --site-bg: #f3f4f6;
+  --site-panel: #ffffff;
+  --site-border: #e3e6ea;
+  --site-text: #1b1f24;
+  --site-text-2: #57606a;
+  --site-accent: #2c5cff;
+  --site-accent-soft: #e9eeff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --site-bg: #15171a;
+    --site-panel: #1c1f23;
+    --site-border: #2f343a;
+    --site-text: #e8eaed;
+    --site-text-2: #a9b0b8;
+    --site-accent: #5b82ff;
+    --site-accent-soft: #23305a;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--site-bg);
+  color: var(--site-text);
+}
+
+/* Schrift nur für die statischen Bereiche – die App selbst bringt ihre eigene mit. */
+.site,
+.site-footer,
+.page,
+.noscript {
+  font: 15px/1.6 system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: var(--site-text);
+}
+
+.site a {
+  color: var(--site-accent);
+}
+
+.noscript {
+  margin: 0;
+  padding: 24px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.site {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 56px 24px 24px;
+}
+
+.site section {
+  margin-bottom: 48px;
+}
+
+.site h1 {
+  font-size: clamp(26px, 3.4vw, 36px);
+  line-height: 1.2;
+  margin: 6px 0 16px;
+  letter-spacing: -0.01em;
+}
+
+.site h2 {
+  font-size: 22px;
+  margin: 0 0 14px;
+}
+
+.site h3 {
+  font-size: 16px;
+  margin: 0 0 4px;
+}
+
+.site p {
+  margin: 0 0 12px;
+}
+
+.eyebrow {
+  color: var(--site-accent);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+
+.lead {
+  font-size: 17px;
+  color: var(--site-text-2);
+}
+
+.site .site-button {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: var(--site-accent);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.site-button:hover {
+  filter: brightness(1.08);
+}
+
+.steps {
+  padding-left: 22px;
+  margin: 0;
+}
+
+.steps li {
+  margin-bottom: 8px;
+}
+
+.features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.features li {
+  background: var(--site-panel);
+  border: 1px solid var(--site-border);
+  border-radius: 12px;
+  padding: 16px 18px;
+}
+
+.features p {
+  color: var(--site-text-2);
+  font-size: 14px;
+  margin: 0;
+}
+
+.faq {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.faq-item {
+  background: var(--site-panel);
+  border: 1px solid var(--site-border);
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+
+.faq-item summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.faq-item p {
+  margin: 8px 0 2px;
+  color: var(--site-text-2);
+}
+
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 20px;
+  padding: 24px;
+  border-top: 1px solid var(--site-border);
+  color: var(--site-text-2);
+  font-size: 13px;
+}
+
+.site-footer a {
+  color: inherit;
+}
+
+/* ---------- Einfache Unterseiten (Impressum, Datenschutz, 404) ---------- */
+
+.page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 32px 24px 48px;
+}
+
+.page-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+  font-weight: 650;
+  text-decoration: none;
+  color: inherit;
+}
+
+.page h1 {
+  font-size: 30px;
+  margin: 0 0 20px;
+}
+
+.page h2 {
+  font-size: 19px;
+  margin: 28px 0 8px;
+}
+
+.page a {
+  color: var(--site-accent);
+}
+
+.page .todo {
+  background: #fff4e5;
+  color: #8a3b00;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+}
+
+.page .optout {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--site-border);
+  background: var(--site-panel);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}

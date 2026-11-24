@@ -1,0 +1,31 @@
+# Caddy kümmert sich automatisch um HTTPS-Zertifikate (Let's Encrypt).
+# Domain anpassen, Datei z. B. nach /etc/caddy/Caddyfile kopieren, dann: sudo systemctl reload caddy
+
+# --- Variante A: Docker-Container (docker compose up -d --build) hinter Caddy ---
+monthgrid.verzonex.com {
+	encode zstd gzip
+	reverse_proxy 127.0.0.1:8080
+	header Strict-Transport-Security "max-age=31536000"
+}
+
+# --- Variante B: ohne Docker – Caddy liefert den Ordner dist/ direkt aus ---
+# (Hochladen z. B. mit deploy/deploy-rsync.sh)
+#
+# monthgrid.verzonex.com {
+# 	root * /var/www/monthgrid
+# 	encode zstd gzip
+# 	try_files {path} {path}.html
+# 	file_server
+# 	@assets path /assets/*
+# 	header @assets Cache-Control "public, max-age=31536000, immutable"
+# 	header {
+# 		Strict-Transport-Security "max-age=31536000"
+# 		X-Content-Type-Options nosniff
+# 		Referrer-Policy strict-origin-when-cross-origin
+# 		Content-Security-Policy "default-src 'self'; script-src 'self' https://app.rybbit.io; connect-src 'self' https://app.rybbit.io; img-src 'self' data: blob:; font-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'"
+# 	}
+# 	handle_errors {
+# 		rewrite * /404.html
+# 		file_server
+# 	}
+# }

@@ -92,7 +92,13 @@ export function createYearContext(cfg: Config, resolveFont: FontResolver): YearC
       weekNo: resolveFont(cfg.weekNumbers.font),
       notes: resolveFont(cfg.holidays.font),
     },
-    annotations: buildAnnotations([year - 1, year, year + 1], cfg.holidays.region, cfg.holidays.observances, cfg.holidays.entries),
+    annotations: buildAnnotations(
+      [year - 1, year, year + 1],
+      cfg.holidays.region,
+      cfg.holidays.observances,
+      cfg.holidays.entries,
+      cfg.general.locale.toLowerCase().startsWith('en') ? 'en' : 'de',
+    ),
     titleInkTop: 0,
     titleInkBottom: 0,
   };

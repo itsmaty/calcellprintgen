@@ -4,5 +4,6 @@ dist-standalone
 *.log
 .DS_Store
 .vite
+.env
 lokale-schriften/*
 !lokale-schriften/LIESMICH.txt

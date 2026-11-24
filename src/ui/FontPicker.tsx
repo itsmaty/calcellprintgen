@@ -2,7 +2,9 @@ import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import type { FontRef } from '../config/types';
 import { CATEGORY_LABELS, fontRegistry, isFontInstalled, type FamilyInfo, type FontCategory } from '../fonts/registry';
 import { missingGlyphs } from '../render/text';
+import { track } from '../analytics';
 import { IconChevron, IconClose, IconSearch, IconTrash, IconUpload } from './icons';
+import { t } from '../i18n';
 
 export function useRegistryVersion(): number {
   return useSyncExternalStore(
@@ -79,7 +81,7 @@ export function FontPicker(props: { value: FontRef; onChange: (v: FontRef) => vo
           className="select font-face-select"
           value={resolved.faceKey}
           onChange={(e) => props.onChange({ family: resolved.familyId, face: e.target.value })}
-          title="Schnitt"
+          title={t('Schnitt')}
         >
           {family.faces.map((f) => (
             <option key={f.key} value={f.key}>
@@ -91,18 +93,18 @@ export function FontPicker(props: { value: FontRef; onChange: (v: FontRef) => vo
       {!resolved.exact &&
         (/^(sys|loc):/.test(props.value.family) && resolved.familyId === `css:${cleanName(props.value.family)}` ? (
           <div className="hint">
-            Wird per Name genutzt. Für Text als Pfade im Schriftwähler „Installierte Schriften“ laden.
+            {t('Wird per Name genutzt. Für Text als Pfade im Schriftwähler „Installierte Schriften“ laden.')}
           </div>
         ) : (
-          <div className="hint is-warn">„{cleanName(props.value.family)}“ ist hier nicht verfügbar – stattdessen wird {family.name} verwendet.</div>
+          <div className="hint is-warn">{t('„{font}“ ist hier nicht verfügbar – stattdessen wird {fallback} verwendet.', { font: cleanName(props.value.family), fallback: family.name })}</div>
         ))}
       {family.source === 'css' && resolved.exact && (
-        <div className="hint">Installierte Schrift per Name: im SVG bleibt dieser Text editierbarer Text.</div>
+        <div className="hint">{t('Installierte Schrift per Name: im SVG bleibt dieser Text editierbarer Text.')}</div>
       )}
       {missing.length > 0 && (
         <div className="hint is-warn">
-          Fehlende Zeichen: {missing.slice(0, 16).join(' ')}
-          {missing.length > 16 ? ' …' : ''} – werden aus Inter ergänzt.
+          {t('Fehlende Zeichen:')} {missing.slice(0, 16).join(' ')}
+          {missing.length > 16 ? ' …' : ''} {t('– werden aus Inter ergänzt.')}
         </div>
       )}
       {open && <FontPopover current={resolved.familyId} onPick={pickFamily} onClose={() => setOpen(false)} />}
@@ -113,25 +115,25 @@ export function FontPicker(props: { value: FontRef; onChange: (v: FontRef) => vo
 type Filter = 'all' | FontCategory | 'own';
 
 const FILTERS: { id: Filter; label: string }[] = [
-  { id: 'all', label: 'Alle' },
-  { id: 'sans', label: 'Serifenlos' },
-  { id: 'serif', label: 'Serif' },
-  { id: 'display', label: 'Display' },
-  { id: 'handwriting', label: 'Handschrift' },
-  { id: 'mono', label: 'Mono' },
-  { id: 'own', label: 'Auf diesem PC & eigene' },
+  { id: 'all', label: t('Alle') },
+  { id: 'sans', label: t('Serifenlos') },
+  { id: 'serif', label: t('Serif') },
+  { id: 'display', label: t('Display') },
+  { id: 'handwriting', label: t('Handschrift') },
+  { id: 'mono', label: t('Mono') },
+  { id: 'own', label: t('Auf diesem PC & eigene') },
 ];
 
 const GROUP_ORDER: { key: string; title: string; match: (f: FamilyInfo) => boolean }[] = [
-  { key: 'upload', title: 'Eigene Schriften', match: (f) => f.source === 'upload' },
+  { key: 'upload', title: t('Eigene Schriften'), match: (f) => f.source === 'upload' },
   ...(['sans', 'serif', 'display', 'handwriting', 'mono'] as FontCategory[]).map((c) => ({
     key: c,
-    title: CATEGORY_LABELS[c],
+    title: t(CATEGORY_LABELS[c]),
     match: (f: FamilyInfo) => f.source === 'bundled' && f.category === c,
   })),
-  { key: 'local', title: 'Auf diesem PC installiert', match: (f) => f.source === 'local' },
-  { key: 'system', title: 'Installiert (Systemschriften)', match: (f) => f.source === 'system' },
-  { key: 'css', title: 'Per Name (installiert)', match: (f) => f.source === 'css' },
+  { key: 'local', title: t('Auf diesem PC installiert'), match: (f) => f.source === 'local' },
+  { key: 'system', title: t('Installiert (Systemschriften)'), match: (f) => f.source === 'system' },
+  { key: 'css', title: t('Per Name (installiert)'), match: (f) => f.source === 'css' },
 ];
 
 function FontPopover(props: { current: string; onPick: (familyId: string) => void; onClose: () => void }) {
@@ -181,10 +183,11 @@ function FontPopover(props: { current: string; onPick: (familyId: string) => voi
     if (!files?.length) return;
     setBusy(true);
     const result = await fontRegistry.addFiles([...files]);
+    if (result.added.length) track('schrift_upload', { familien: result.added.length });
     setBusy(false);
     if (result.errors.length) setMessage({ text: result.errors.join(' · '), warn: true });
     if (result.added.length) {
-      if (!result.errors.length) setMessage({ text: `${result.added.length} Schriftfamilie(n) hinzugefügt.` });
+      if (!result.errors.length) setMessage({ text: t('{n} Schriftfamilie(n) hinzugefügt.', { n: result.added.length }) });
       props.onPick(result.added[0]);
     }
   };
@@ -193,7 +196,7 @@ function FontPopover(props: { current: string; onPick: (familyId: string) => voi
     setBusy(true);
     const n = await fontRegistry.loadLocalServerFonts(true);
     setBusy(false);
-    setMessage({ text: `${n} Schriftfamilien auf diesem PC gefunden.` });
+    setMessage({ text: t('{n} Schriftfamilien auf diesem PC gefunden.', { n }) });
     setFilter('own');
   };
 
@@ -201,10 +204,11 @@ function FontPopover(props: { current: string; onPick: (familyId: string) => voi
     setBusy(true);
     try {
       const n = await fontRegistry.loadSystemFonts();
-      setMessage({ text: `${n} installierte Schriftfamilien gefunden.` });
+      track('systemschriften', { familien: n });
+      setMessage({ text: t('{n} installierte Schriftfamilien gefunden.', { n }) });
       setFilter('own');
     } catch (err) {
-      setMessage({ text: err instanceof Error ? err.message : 'Zugriff auf installierte Schriften nicht möglich.', warn: true });
+      setMessage({ text: err instanceof Error ? err.message : t('Zugriff auf installierte Schriften nicht möglich.'), warn: true });
     }
     setBusy(false);
   };
@@ -214,8 +218,9 @@ function FontPopover(props: { current: string; onPick: (familyId: string) => voi
     if (!name) return;
     const installed = isFontInstalled(name);
     const id = fontRegistry.addCssFont(name);
+    track('schrift_per_name');
     if (!installed) {
-      setMessage({ text: `„${name}“ scheint nicht installiert zu sein – die Vorschau zeigt dann eine Ersatzschrift.`, warn: true });
+      setMessage({ text: t('„{name}“ scheint nicht installiert zu sein – die Vorschau zeigt dann eine Ersatzschrift.', { name }), warn: true });
     }
     setNameMode(false);
     setCssName('');
@@ -226,8 +231,8 @@ function FontPopover(props: { current: string; onPick: (familyId: string) => voi
     <div className="font-popover" ref={ref}>
       <div className="font-popover-search">
         <IconSearch size={15} />
-        <input autoFocus placeholder="Schrift suchen …" value={query} onChange={(e) => setQuery(e.target.value)} />
-        <button type="button" className="icon-btn" onClick={props.onClose} title="Schließen">
+        <input autoFocus placeholder={t('Schrift suchen …')} value={query} onChange={(e) => setQuery(e.target.value)} />
+        <button type="button" className="icon-btn" onClick={props.onClose} title={t('Schließen')}>
           <IconClose size={14} />
         </button>
       </div>
@@ -239,7 +244,7 @@ function FontPopover(props: { current: string; onPick: (familyId: string) => voi
         ))}
       </div>
       <div className="font-popover-list">
-        {groups.length === 0 && <div className="font-empty">Keine Schrift gefunden.</div>}
+        {groups.length === 0 && <div className="font-empty">{t('Keine Schrift gefunden.')}</div>}
         {groups.map((g) => (
           <div key={g.key} className="font-group">
             <div className="font-group-title">{g.title}</div>
@@ -255,36 +260,36 @@ function FontPopover(props: { current: string; onPick: (familyId: string) => voi
           <input
             className="text-input"
             autoFocus
-            placeholder="z. B. Helvetica Neue"
+            placeholder={t('z. B. Helvetica Neue')}
             value={cssName}
             onChange={(e) => setCssName(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && addByName()}
           />
           <button type="button" className="btn btn-small btn-primary" onClick={addByName}>
-            Übernehmen
+            {t('Übernehmen')}
           </button>
           <button type="button" className="btn btn-small" onClick={() => setNameMode(false)}>
-            Abbrechen
+            {t('Abbrechen')}
           </button>
         </div>
       ) : (
         <div className="font-popover-foot">
-          <label className={`btn btn-small${busy ? ' is-busy' : ''}`} title="TTF, OTF, WOFF oder TTC (auch variable Schriften)">
-            <IconUpload size={14} /> Schriftdatei …
+          <label className={`btn btn-small${busy ? ' is-busy' : ''}`} title={t('TTF, OTF, WOFF oder TTC (auch variable Schriften)')}>
+            <IconUpload size={14} /> {t('Schriftdatei …')}
             <input type="file" hidden multiple accept=".ttf,.otf,.woff,.ttc,.otc" onChange={(e) => onFiles(e.target.files)} />
           </label>
           {fontRegistry.localServerAvailable && (
-            <button type="button" className="btn btn-small" onClick={refreshLocal} disabled={busy} title="Installierte Schriften und Ordner „lokale-schriften“ neu einlesen">
-              PC-Schriften neu einlesen
+            <button type="button" className="btn btn-small" onClick={refreshLocal} disabled={busy} title={t('Installierte Schriften und Ordner „lokale-schriften“ neu einlesen')}>
+              {t('PC-Schriften neu einlesen')}
             </button>
           )}
           {!fontRegistry.localServerAvailable && fontRegistry.systemFontsSupported && !fontRegistry.systemFontsLoaded && (
             <button type="button" className="btn btn-small" onClick={loadSystem} disabled={busy}>
-              Installierte Schriften
+              {t('Installierte Schriften')}
             </button>
           )}
-          <button type="button" className="btn btn-small" onClick={() => setNameMode(true)} title="Eine auf diesem Rechner installierte Schrift über ihren Namen verwenden">
-            Per Name …
+          <button type="button" className="btn btn-small" onClick={() => setNameMode(true)} title={t('Eine auf diesem Rechner installierte Schrift über ihren Namen verwenden')}>
+            {t('Per Name …')}
           </button>
         </div>
       )}
@@ -320,15 +325,15 @@ function FontItem(props: { family: FamilyInfo; active: boolean; onPick: (id: str
         <span className="font-item-name" style={{ fontFamily: preview ? `"${preview}", system-ui` : undefined }}>
           {family.name}
         </span>
-        <span className="font-item-meta">{family.faces.length === 1 ? '1 Schnitt' : `${family.faces.length} Schnitte`}</span>
+        <span className="font-item-meta">{family.faces.length === 1 ? t('1 Schnitt') : t('{n} Schnitte', { n: family.faces.length })}</span>
       </button>
       {removable && (
         <button
           type="button"
           className="icon-btn font-item-remove"
-          title="Schrift entfernen"
+          title={t('Schrift entfernen')}
           onClick={() => {
-            if (confirm(`Schrift „${family.name}“ aus dem Browser entfernen?`)) fontRegistry.removeFamily(family.id);
+            if (confirm(t('Schrift „{name}“ aus dem Browser entfernen?', { name: family.name }))) fontRegistry.removeFamily(family.id);
           }}
         >
           <IconTrash size={13} />

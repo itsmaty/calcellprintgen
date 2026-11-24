@@ -1,6 +1,7 @@
 import { useEffect, useId, useState, type ReactNode } from 'react';
 import type { Anchor } from '../config/types';
 import { IconChevron } from './icons';
+import { t, uiLocale } from '../i18n';
 
 // ---------- Abschnitt (aufklappbar) ----------
 
@@ -43,7 +44,7 @@ export function Section(props: {
           {props.badge}
         </button>
         {props.onEnabledChange && (
-          <Switch checked={!!props.enabled} onChange={props.onEnabledChange} label={`${props.title} anzeigen`} />
+          <Switch checked={!!props.enabled} onChange={props.onEnabledChange} label={t('{title} anzeigen', { title: props.title })} />
         )}
       </div>
       {open && <div className="section-body">{props.children}</div>}
@@ -118,10 +119,10 @@ function parseNumber(text: string): number | null {
   return Number.isFinite(v) ? v : null;
 }
 
-const numberFormat = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 3, useGrouping: false });
+const numberFormat = new Intl.NumberFormat(uiLocale, { maximumFractionDigits: 3, useGrouping: false });
 
 export function formatNumber(v: number, digits = 2): string {
-  return new Intl.NumberFormat('de-DE', { maximumFractionDigits: digits, useGrouping: false }).format(v);
+  return new Intl.NumberFormat(uiLocale, { maximumFractionDigits: digits, useGrouping: false }).format(v);
 }
 
 export function NumberField(props: {
@@ -215,7 +216,7 @@ export function ColorField(props: { value: string; onChange: (v: string) => void
   useEffect(() => setText(props.value), [props.value]);
   return (
     <div className={`color-field${props.disabled ? ' is-disabled' : ''}${props.compact ? ' is-compact' : ''}`}>
-      <label className="swatch" style={{ background: props.value }} title="Farbe wählen">
+      <label className="swatch" style={{ background: props.value }} title={t('Farbe wählen')}>
         <input type="color" value={normalizeHex(props.value) ?? '#000000'} disabled={props.disabled} onChange={(e) => props.onChange(e.target.value)} />
       </label>
       {!props.compact && (
@@ -342,15 +343,15 @@ export function TextArea(props: { value: string; onChange: (v: string) => void; 
 
 const ANCHORS: Anchor[] = ['tl', 'tc', 'tr', 'ml', 'mc', 'mr', 'bl', 'bc', 'br'];
 const ANCHOR_LABELS: Record<Anchor, string> = {
-  tl: 'oben links',
-  tc: 'oben mittig',
-  tr: 'oben rechts',
-  ml: 'mittig links',
-  mc: 'Mitte',
-  mr: 'mittig rechts',
-  bl: 'unten links',
-  bc: 'unten mittig',
-  br: 'unten rechts',
+  tl: t('oben links'),
+  tc: t('oben mittig'),
+  tr: t('oben rechts'),
+  ml: t('mittig links'),
+  mc: t('Mitte'),
+  mr: t('mittig rechts'),
+  bl: t('unten links'),
+  bc: t('unten mittig'),
+  br: t('unten rechts'),
 };
 
 export function AnchorPicker(props: { value: Anchor; onChange: (v: Anchor) => void }) {

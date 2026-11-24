@@ -1,6 +1,8 @@
 // SVG → PNG im Browser rastern und die Auflösung (DPI) in die Datei schreiben,
 // damit Layoutprogramme (InDesign, Affinity, Photoshop …) die richtige Druckgröße erkennen.
 
+import { t } from '../i18n';
+
 const MAX_SIDE = 32_767;
 const MAX_AREA = 268_000_000;
 
@@ -80,7 +82,7 @@ export function pixelSize(widthMm: number, heightMm: number, dpi: number): { wid
 
 export function checkCanvasSize(width: number, height: number): string | null {
   if (width > MAX_SIDE || height > MAX_SIDE || width * height > MAX_AREA) {
-    return `Das Bild wäre ${width} × ${height} px groß – zu groß für den Browser. Bitte die Auflösung (dpi) verringern.`;
+    return t('Das Bild wäre {w} × {h} px groß – zu groß für den Browser. Bitte die Auflösung (dpi) verringern.', { w: width, h: height });
   }
   return null;
 }
@@ -89,7 +91,7 @@ function loadImage(url: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.onload = () => resolve(img);
-    img.onerror = () => reject(new Error('Die Grafik konnte nicht gerastert werden.'));
+    img.onerror = () => reject(new Error(t('Die Grafik konnte nicht gerastert werden.')));
     img.src = url;
   });
 }
@@ -105,10 +107,10 @@ export async function rasterizeSvg(svg: string, width: number, height: number, d
     canvas.width = width;
     canvas.height = height;
     const ctx = canvas.getContext('2d');
-    if (!ctx) throw new Error('Canvas nicht verfügbar.');
+    if (!ctx) throw new Error(t('Canvas nicht verfügbar.'));
     ctx.drawImage(img, 0, 0, width, height);
     const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/png'));
-    if (!blob) throw new Error(`PNG mit ${width} × ${height} px konnte nicht erzeugt werden – bitte die Auflösung verringern.`);
+    if (!blob) throw new Error(t('PNG mit {w} × {h} px konnte nicht erzeugt werden – bitte die Auflösung verringern.', { w: width, h: height }));
     return setPngDpi(new Uint8Array(await blob.arrayBuffer()), dpi);
   } finally {
     URL.revokeObjectURL(url);

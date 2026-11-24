@@ -1,0 +1,20 @@
+# Start:   docker compose up -d --build
+# Werte kommen aus der Datei .env (Vorlage: .env.example).
+services:
+  monthgrid:
+    build:
+      context: .
+      args:
+        SITE_URL: ${SITE_URL:-}
+        RYBBIT_SCRIPT_URL: ${RYBBIT_SCRIPT_URL:-}
+        RYBBIT_SITE_ID: ${RYBBIT_SITE_ID:-}
+        SEO_YEAR: ${SEO_YEAR:-}
+    image: monthgrid:latest
+    restart: unless-stopped
+    environment:
+      # nur nötig, wenn die CSP-Adresse von der Script-Adresse abweicht (z. B. Proxy)
+      RYBBIT_ORIGIN: ${RYBBIT_ORIGIN:-}
+    ports:
+      # Nur lokal erreichbar – davor sitzt der Reverse-Proxy mit HTTPS (siehe deploy/Caddyfile.example).
+      # Läuft bei dir Traefik/Coolify/Dokploy, stattdessen dessen Labels/Netzwerk verwenden.
+      - "127.0.0.1:8080:80"

@@ -12,7 +12,10 @@ import { Preview, svgDataUrl } from './ui/Preview';
 import { ExportDialog } from './ui/ExportDialog';
 import { useRegistryVersion } from './ui/FontPicker';
 import { useBackdropPhoto } from './ui/backdrop';
-import { IconChevron, IconChevronLeft, IconDownload, IconMore, IconRedo, IconSparkles, IconUndo } from './ui/icons';
+import { IconChevron, IconChevronLeft, IconDownload, IconHelp, IconMore, IconRedo, IconSparkles, IconUndo } from './ui/icons';
+import { track } from './analytics';
+import { BRAND, TAGLINE } from './brand';
+import { lang, switchLang, t } from './i18n';
 
 const STORAGE_KEY = 'calcellprintgen:config:v1';
 
@@ -104,11 +107,11 @@ export function App() {
       })
       .catch((e) => setError(e instanceof Error ? e.message : String(e)));
   }, []);
-  if (error) return <div className="splash is-error">Fehler beim Laden: {error}</div>;
+  if (error) return <div className="splash is-error">{t('Fehler beim Laden:')} {error}</div>;
   if (!ready)
     return (
       <div className="splash">
-        <div className="spinner" /> Lade Schriften …
+        <div className="spinner" /> {t('Lade Schriften …')}
       </div>
     );
   return <Editor />;
@@ -197,7 +200,8 @@ function Editor() {
     try {
       const files = await buildExportFiles(ctx, [month], format, cfg.output.dpi, cfg.output.textAsPaths);
       downloadBlob(toBlob(files[0]), files[0].name);
-      setToast({ text: `${files[0].name} gespeichert.` });
+      track('monat_download', { format, dpi: format === 'svg' ? 0 : cfg.output.dpi });
+      setToast({ text: t('{name} gespeichert.', { name: files[0].name }) });
     } catch (err) {
       setToast({ text: err instanceof Error ? err.message : String(err), warn: true });
     } finally {
@@ -206,17 +210,19 @@ function Editor() {
   };
 
   const exportSettings = () => {
+    track('einstellungen_export');
     const blob = new Blob([JSON.stringify(cfg, null, 2)], { type: 'application/json' });
-    downloadBlob(blob, `calcell-einstellungen-${cfg.general.year}.json`);
+    downloadBlob(blob, `monthgrid-${lang === 'en' ? 'settings' : 'einstellungen'}-${cfg.general.year}.json`);
   };
 
   const importSettings = async (file: File) => {
     try {
       const data = JSON.parse(await file.text());
       replace(normalizeConfig(data));
-      setToast({ text: 'Einstellungen geladen.' });
+      track('einstellungen_import');
+      setToast({ text: t('Einstellungen geladen.') });
     } catch {
-      setToast({ text: 'Die Datei enthält keine gültigen Einstellungen.', warn: true });
+      setToast({ text: t('Die Datei enthält keine gültigen Einstellungen.'), warn: true });
     }
   };
 
@@ -237,26 +243,43 @@ function Editor() {
             </g>
           </svg>
           <div className="brand-text">
-            <b>CalCell PrintGen</b>
-            <span>Kalenderzellen für den Druck</span>
+            <b>{BRAND}</b>
+            <span>{TAGLINE}</span>
           </div>
         </div>
-        <div className="year-stepper" title="Jahr">
-          <button type="button" className="icon-btn" onClick={() => update('general', { year: year - 1 })} title="Vorjahr">
+        <div className="year-stepper" title={t('Jahr')}>
+          <button type="button" className="icon-btn" onClick={() => update('general', { year: year - 1 })} title={t('Vorjahr')}>
             <IconChevronLeft size={16} />
           </button>
           <span className="year-value">{year}</span>
-          <button type="button" className="icon-btn" onClick={() => update('general', { year: year + 1 })} title="Folgejahr">
+          <button type="button" className="icon-btn" onClick={() => update('general', { year: year + 1 })} title={t('Folgejahr')}>
             <IconChevron size={16} />
           </button>
         </div>
         <div className="topbar-actions">
-          <PresetMenu cfg={cfg} month={month} onApply={(p) => replace(applyPreset(cfg, p))} />
+          <div className="lang-switch" role="group" aria-label={t('Sprache der Oberfläche')}>
+            {(['de', 'en'] as const).map((l) => (
+              <button type="button" key={l} className={l === lang ? 'is-active' : ''} aria-pressed={l === lang} onClick={() => switchLang(l)} title={l === 'de' ? 'Deutsch' : 'English'}>
+                {l.toUpperCase()}
+              </button>
+            ))}
+          </div>
+          <PresetMenu
+            cfg={cfg}
+            month={month}
+            onApply={(p) => {
+              replace(applyPreset(cfg, p));
+              track('vorlage', { id: p.id });
+            }}
+          />
+          <a className="icon-btn" href="#info" title={t('Anleitung & häufige Fragen')}>
+            <IconHelp size={17} />
+          </a>
           <div className="btn-group">
-            <button type="button" className="icon-btn" onClick={undo} disabled={!canUndo} title="Rückgängig (⌘Z)">
+            <button type="button" className="icon-btn" onClick={undo} disabled={!canUndo} title={t('Rückgängig (⌘Z)')}>
               <IconUndo size={16} />
             </button>
-            <button type="button" className="icon-btn" onClick={redo} disabled={!canRedo} title="Wiederholen (⇧⌘Z)">
+            <button type="button" className="icon-btn" onClick={redo} disabled={!canRedo} title={t('Wiederholen (⇧⌘Z)')}>
               <IconRedo size={16} />
             </button>
           </div>
@@ -264,14 +287,15 @@ function Editor() {
             onExportSettings={exportSettings}
             onImportSettings={importSettings}
             onReset={() => {
-              if (confirm('Alle Einstellungen auf den Standard zurücksetzen? (Rückgängig ist möglich)')) {
+              if (confirm(t('Alle Einstellungen auf den Standard zurücksetzen? (Rückgängig ist möglich)'))) {
                 replace(createDefaultConfig());
-                setToast({ text: 'Auf Standard zurückgesetzt.' });
+                track('zuruecksetzen');
+                setToast({ text: t('Auf Standard zurückgesetzt.') });
               }
             }}
           />
-          <button type="button" className="btn btn-primary" onClick={() => setExportOpen(true)} title="Exportieren (⌘E)">
-            <IconDownload size={15} /> Exportieren
+          <button type="button" className="btn btn-primary" onClick={() => setExportOpen(true)} title={t('Exportieren (⌘E)')}>
+            <IconDownload size={15} /> {t('Exportieren')}
           </button>
         </div>
       </header>
@@ -310,7 +334,7 @@ function PresetMenu(props: { cfg: Config; month: number; onApply: (p: Preset) =>
   return (
     <div className="menu-wrap" ref={ref}>
       <button type="button" className={`btn${open ? ' is-active' : ''}`} onClick={() => setOpen((o) => !o)}>
-        <IconSparkles size={15} /> Vorlagen
+        <IconSparkles size={15} /> {t('Vorlagen')}
       </button>
       {open && <PresetList cfg={props.cfg} month={props.month} onApply={(p) => (props.onApply(p), close())} />}
     </div>
@@ -337,16 +361,16 @@ function PresetList(props: { cfg: Config; month: number; onApply: (p: Preset) =>
   );
   return (
     <div className="menu preset-menu">
-      <div className="menu-title">Vorlage anwenden</div>
-      <div className="menu-note">Jahr, Sprache, Feiertage, eigene Einträge und Export bleiben erhalten. Rückgängig mit ⌘Z.</div>
+      <div className="menu-title">{t('Vorlage anwenden')}</div>
+      <div className="menu-note">{t('Jahr, Sprache, Feiertage, eigene Einträge und Export bleiben erhalten. Rückgängig mit ⌘Z.')}</div>
       <div className="preset-grid">
         {PRESETS.map((p, i) => (
           <button type="button" key={p.id} className="preset" onClick={() => props.onApply(p)}>
             <span className="preset-img" style={photo ? { backgroundImage: `url("${photo}")` } : undefined}>
               {previews[i] ? <img src={previews[i]!} alt="" /> : <span className="spinner is-small" />}
             </span>
-            <span className="preset-name">{p.name}</span>
-            <span className="preset-desc">{p.description}</span>
+            <span className="preset-name">{t(p.name)}</span>
+            <span className="preset-desc">{t(p.description)}</span>
           </button>
         ))}
       </div>
@@ -361,7 +385,7 @@ function MoreMenu(props: { onExportSettings: () => void; onImportSettings: (f: F
   const fileRef = useRef<HTMLInputElement>(null);
   return (
     <div className="menu-wrap" ref={ref}>
-      <button type="button" className={`icon-btn${open ? ' is-active' : ''}`} onClick={() => setOpen((o) => !o)} title="Weitere Aktionen">
+      <button type="button" className={`icon-btn${open ? ' is-active' : ''}`} onClick={() => setOpen((o) => !o)} title={t('Weitere Aktionen')}>
         <IconMore size={18} />
       </button>
       {open && (
@@ -373,10 +397,10 @@ function MoreMenu(props: { onExportSettings: () => void; onImportSettings: (f: F
               close();
             }}
           >
-            Einstellungen speichern (.json)
+            {t('Einstellungen speichern (.json)')}
           </button>
           <button type="button" onClick={() => fileRef.current?.click()}>
-            Einstellungen laden …
+            {t('Einstellungen laden …')}
           </button>
           <div className="menu-sep" />
           <button
@@ -387,7 +411,7 @@ function MoreMenu(props: { onExportSettings: () => void; onImportSettings: (f: F
               props.onReset();
             }}
           >
-            Alles zurücksetzen
+            {t('Alles zurücksetzen')}
           </button>
         </div>
       )}

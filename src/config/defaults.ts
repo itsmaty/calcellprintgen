@@ -1,4 +1,5 @@
 import type { Config, DayOverride } from './types';
+import { lang as uiLang, type Lang } from '../i18n';
 
 export const CONFIG_VERSION = 1;
 
@@ -7,6 +8,9 @@ export const DEFAULT_MONTH_NAMES = [
   'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember',
 ];
 export const DEFAULT_WEEKDAY_NAMES = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
+
+const EN_MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const EN_WEEKDAY_NAMES = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 /** Kalender werden meist fürs nächste Jahr gestaltet – ab Juli ist das Folgejahr vorausgewählt. */
 export function defaultYear(now = new Date()): number {
@@ -30,16 +34,18 @@ function override(partial: Partial<DayOverride>): DayOverride {
   };
 }
 
-export function createDefaultConfig(): Config {
+/** Startwerte; auf der englischen Seite mit englischem Kalender, ohne „1.“ und ohne deutsche Feiertage. */
+export function createDefaultConfig(language: Lang = uiLang): Config {
+  const en = language === 'en';
   return {
     version: CONFIG_VERSION,
     general: {
       year: defaultYear(),
-      locale: 'de',
+      locale: en ? 'en' : 'de',
       weekStart: 1,
       customNames: false,
-      monthNames: [...DEFAULT_MONTH_NAMES],
-      weekdayNames: [...DEFAULT_WEEKDAY_NAMES],
+      monthNames: [...(en ? EN_MONTH_NAMES : DEFAULT_MONTH_NAMES)],
+      weekdayNames: [...(en ? EN_WEEKDAY_NAMES : DEFAULT_WEEKDAY_NAMES)],
     },
     // Standard-Look: Kästchen mit Rahmen, Verlauf und Schlagschatten, Wochentage im gleichen Stil.
     layout: {
@@ -107,7 +113,7 @@ export function createDefaultConfig(): Config {
       padY: 1,
       leadingZero: false,
       prefix: '',
-      suffix: '.',
+      suffix: en ? '' : '.',
       badge: 'none',
       badgeScope: 'all',
       badgeSize: 7.5,
@@ -182,7 +188,7 @@ export function createDefaultConfig(): Config {
       overflow: override({ number: '#9aa1ab', fill: '#f7f8f9', stroke: '#d6dade', label: '#9aa1ab', badge: '#eceef0' }),
     },
     holidays: {
-      region: 'DE',
+      region: en ? 'none' : 'DE',
       showNames: false,
       observances: false,
       entries: '',
@@ -213,7 +219,7 @@ export function createDefaultConfig(): Config {
       format: 'png',
       dpi: 300,
       textAsPaths: true,
-      fileName: '{jahr}-{mm}_{monat}',
+      fileName: en ? '{year}-{mm}_{month}' : '{jahr}-{mm}_{monat}',
       months: Array(12).fill(true),
     },
   };

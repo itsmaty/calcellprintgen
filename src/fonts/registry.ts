@@ -4,6 +4,7 @@ import type { FontRef } from '../config/types';
 import { createCssFont, createLoadedFont, type LoadedFont } from './loaded';
 import { detectFormat, splitCollection } from './sfnt';
 import { deleteStoredFont, listStoredFonts, putStoredFont } from './storage';
+import { t } from '../i18n';
 
 export type FontSource = 'bundled' | 'upload' | 'system' | 'local' | 'css';
 export type FontCategory = 'sans' | 'serif' | 'display' | 'handwriting' | 'mono' | 'other';
@@ -108,7 +109,7 @@ const WEIGHT_NAMES: Record<number, string> = {
 
 export function weightLabel(weight: number, italic: boolean): string {
   const name = WEIGHT_NAMES[Math.round(weight / 100) * 100] ?? '';
-  return `${weight} ${name}${italic ? ' Kursiv' : ''}`.trim();
+  return `${weight} ${name}${italic ? ` ${t('Kursiv')}` : ''}`.trim();
 }
 
 function guessWeight(style: string): number {
@@ -210,9 +211,9 @@ class FontRegistry {
           italic,
           load: async () => {
             const url = fontUrls[`../assets/fonts/${v.file}`];
-            if (!url) throw new Error(`Schriftdatei fehlt: ${v.file}`);
+            if (!url) throw new Error(t('Schriftdatei fehlt: {file}', { file: v.file }));
             const res = await fetch(url);
-            if (!res.ok) throw new Error(`Schrift konnte nicht geladen werden: ${v.file}`);
+            if (!res.ok) throw new Error(t('Schrift konnte nicht geladen werden: {file}', { file: v.file }));
             const buffer = await res.arrayBuffer();
             this.registerPreview(family.previewFamily!, buffer, v.weight, italic);
             return createLoadedFont({
@@ -243,7 +244,8 @@ class FontRegistry {
             console.warn('Gespeicherte Schrift konnte nicht gelesen werden', file.fileName, err);
           }
         }
-        await withTimeout(this.loadLocalServerFonts(), 10000).catch(() => undefined);
+        // Der Endpunkt für PC-Schriften existiert nur im Dev-Server (npm run dev)
+        if (import.meta.env.DEV) await withTimeout(this.loadLocalServerFonts(), 10000).catch(() => undefined);
         if (!this.localServerAvailable) {
           try {
             const status = await withTimeout(navigator.permissions?.query({ name: 'local-fonts' as PermissionName }), 1500);
@@ -465,8 +467,8 @@ class FontRegistry {
   /** Liest eine Schriftdatei ein und legt Familien/Schnitte an. Gibt die Familien-IDs zurück. */
   private ingest(fileId: string, fileName: string, buffer: ArrayBuffer): string[] {
     const format = detectFormat(buffer);
-    if (format === 'woff2') throw new Error('WOFF2 wird nicht unterstützt – bitte TTF, OTF oder WOFF verwenden.');
-    if (format === 'unknown') throw new Error('Unbekanntes Schriftformat.');
+    if (format === 'woff2') throw new Error(t('WOFF2 wird nicht unterstützt – bitte TTF, OTF oder WOFF verwenden.'));
+    if (format === 'unknown') throw new Error(t('Unbekanntes Schriftformat.'));
     const buffers = format === 'ttc' ? splitCollection(buffer) : [buffer];
     const familyIds: string[] = [];
     buffers.forEach((faceBuffer, index) => {
@@ -491,7 +493,7 @@ class FontRegistry {
       const instances = ot.variation && ot.tables.fvar?.instances?.length ? ot.tables.fvar.instances : null;
       if (instances) {
         instances.forEach((inst, i) => {
-          const label = inst.name?.en ?? Object.values(inst.name ?? {})[0] ?? `Instanz ${i + 1}`;
+          const label = inst.name?.en ?? Object.values(inst.name ?? {})[0] ?? t('Instanz {n}', { n: i + 1 });
           const weight = Math.round(inst.coordinates.wght ?? baseWeight);
           const italic = guessItalic(label) || inst.coordinates.ital === 1 || (inst.coordinates.slnt ?? 0) < 0;
           addFace(`${fileId}:${index}:${i}`, label, weight, italic, { ...inst.coordinates });
@@ -523,7 +525,7 @@ class FontRegistry {
 
   /** Fragt installierte Schriften ab (Chrome/Edge, Local Font Access API). */
   async loadSystemFonts(): Promise<number> {
-    if (!this.systemFontsSupported) throw new Error('Dieser Browser erlaubt keinen Zugriff auf installierte Schriften.');
+    if (!this.systemFontsSupported) throw new Error(t('Dieser Browser erlaubt keinen Zugriff auf installierte Schriften.'));
     const fonts = await window.queryLocalFonts!();
     const byFamily = new Map<string, LocalFontData[]>();
     for (const f of fonts) {

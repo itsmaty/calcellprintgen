@@ -4,11 +4,116 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="light dark" />
-    <title>CalCell PrintGen – Kalenderzellen für den Druck</title>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='4' width='28' height='26' rx='5' fill='%232c5cff'/%3E%3Crect x='2' y='4' width='28' height='8' rx='4' fill='%23173bd1'/%3E%3Cg fill='%23fff'%3E%3Crect x='6' y='15' width='5' height='5' rx='1.2'/%3E%3Crect x='13.5' y='15' width='5' height='5' rx='1.2'/%3E%3Crect x='21' y='15' width='5' height='5' rx='1.2'/%3E%3Crect x='6' y='22' width='5' height='5' rx='1.2'/%3E%3Crect x='13.5' y='22' width='5' height='5' rx='1.2'/%3E%3C/g%3E%3C/svg%3E" />
+    <title>Kalendarium erstellen %YEAR% – Kalenderzellen als PNG & SVG | MonthGrid</title>
+    <meta name="description" content="MonthGrid ist ein kostenloser Kalendarium-Generator: Kalenderzellen für deinen Fotokalender %YEAR% gestalten und alle 12 Monate als transparente PNG (300 dpi) oder SVG laden." />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#2c5cff" />
+    <link rel="canonical" href="%SITE_URL%/" />
+    <link rel="alternate" hreflang="de" href="%SITE_URL%/" />
+    <link rel="alternate" hreflang="en" href="%SITE_URL%/en/" />
+    <link rel="alternate" hreflang="x-default" href="%SITE_URL%/en/" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:site_name" content="MonthGrid" />
+    <meta property="og:title" content="MonthGrid – Kalendarium-Generator für Fotokalender" />
+    <meta property="og:description" content="Kalenderzellen für Foto- und Wandkalender gestalten und alle 12 Monate als transparente PNG oder SVG herunterladen. Kostenlos, ohne Anmeldung." />
+    <meta property="og:url" content="%SITE_URL%/" />
+    <meta property="og:image" content="%SITE_URL%/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Kalendarium mit Kästchen-Zellen auf einem Foto – erstellt mit MonthGrid" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="MonthGrid – Kalendarium-Generator für Fotokalender" />
+    <meta name="twitter:description" content="Kalenderzellen für Foto- und Wandkalender gestalten und als transparente PNG oder SVG herunterladen." />
+    <meta name="twitter:image" content="%SITE_URL%/og-image.png" />
+
+    <!--JSONLD-->
+    <link rel="stylesheet" href="/src/site.css" />
+    <!--ANALYTICS-->
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <p class="noscript">MonthGrid braucht JavaScript. Bitte aktiviere JavaScript in deinem Browser.</p>
+    </noscript>
+
+    <main id="info" class="site">
+      <section class="site-hero">
+        <p class="eyebrow">Kalendarium %YEAR% erstellen · kostenlos · ohne Anmeldung · alles im Browser</p>
+        <h1>MonthGrid – Kalendarium-Generator für Fotokalender</h1>
+        <p class="lead">
+          Mit MonthGrid gestaltest du das Kalendarium für deinen Foto- oder Wandkalender – also das Raster aus
+          Wochentagen und Tageszahlen – und lädst alle 12 Monate als <strong>transparente PNG mit 300 dpi</strong>
+          oder als <strong>SVG</strong> herunter. Die Grafiken legst du anschließend in Canva, InDesign, Affinity,
+          Photoshop oder deiner Fotobuch-Software auf deine Bilder.
+        </p>
+        <p><a class="site-button" href="#root">Jetzt Kalendarium gestalten ↑</a></p>
+      </section>
+
+      <section>
+        <h2>So funktioniert's</h2>
+        <ol class="steps">
+          <li><strong>Jahr wählen.</strong> Feiertage und Kalenderwochen werden automatisch berechnet.</li>
+          <li>
+            <strong>Zellen gestalten.</strong> Form, Ecken, Farben, Rahmen, Schatten und Schriften für Tageszahlen und
+            Wochentage festlegen – oder mit einer Vorlage starten.
+          </li>
+          <li><strong>Exportieren.</strong> PNG oder SVG und die Auflösung wählen und alle Monate als ZIP-Datei laden.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Funktionen</h2>
+        <ul class="features">
+          <li>
+            <h3>Viele Zellformen</h3>
+            <p>Rechteckig, schräg (Parallelogramm), rund, oval, Squircle oder Sechseck – mit abgerundeten, abgeschrägten oder nach innen gewölbten Ecken.</p>
+          </li>
+          <li>
+            <h3>Schriften nach Wahl</h3>
+            <p>Über 50 mitgelieferte Schriften oder eigene Schriftdateien. Für den Druck werden Texte in Vektorpfade umgewandelt.</p>
+          </li>
+          <li>
+            <h3>Feiertage & Termine</h3>
+            <p>Gesetzliche Feiertage für alle Bundesländer, Österreich und die Schweiz, dazu eigene Einträge wie Geburtstage.</p>
+          </li>
+          <li>
+            <h3>Überlauftage</h3>
+            <p>Tage aus Vor- und Folgemonat ausgegraut, als leere Kästchen oder ganz ausgeblendet.</p>
+          </li>
+          <li>
+            <h3>Druckfertiger Export</h3>
+            <p>PNG mit 150, 300 oder 600 dpi und transparentem Hintergrund, SVG in Millimetern – einzeln oder als ZIP.</p>
+          </li>
+          <li>
+            <h3>Privat</h3>
+            <p>Alles wird in deinem Browser berechnet. Bilder, Schriften und Einstellungen werden nicht hochgeladen.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Häufige Fragen</h2>
+        <div class="faq">
+<!--FAQ-->
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>© %BUILD_YEAR% MonthGrid – Kalendarium-Generator</span>
+      <a href="/en/" hreflang="en" lang="en">English version</a>
+      <a href="/impressum">Impressum</a>
+      <a href="/datenschutz">Datenschutz</a>
+    </footer>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

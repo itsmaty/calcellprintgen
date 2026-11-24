@@ -1,13 +1,13 @@
 {
-  "name": "calcellprintgen",
+  "name": "monthgrid",
   "private": true,
   "version": "1.0.0",
-  "description": "Kalenderzellen-Generator für Druckkalender – erzeugt 12 Monatsraster als PNG/SVG, komplett lokal im Browser.",
+  "description": "MonthGrid – Calendar Grid Generator: Kalendarium-Generator für Fotokalender (12 Monatsraster als PNG/SVG, komplett im Browser).",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
-    "build:standalone": "tsc --noEmit && vite build --mode standalone && node -e \"require('fs').renameSync('dist-standalone/index.html','dist-standalone/CalCell-PrintGen.html')\"",
+    "build:standalone": "tsc --noEmit && vite build --mode standalone && node -e \"require('fs').renameSync('dist-standalone/index.html','dist-standalone/MonthGrid.html')\"",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",

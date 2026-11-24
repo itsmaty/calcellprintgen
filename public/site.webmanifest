@@ -1,0 +1,31 @@
+{
+  "name": "MonthGrid – Calendar Grid Generator",
+  "short_name": "MonthGrid",
+  "description": "Kalenderzellen für Foto- und Wandkalender gestalten und als PNG oder SVG herunterladen. / Design calendar grids for photo calendars as PNG or SVG.",
+  "lang": "de",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f3f4f6",
+  "theme_color": "#2c5cff",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

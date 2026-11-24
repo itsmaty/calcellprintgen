@@ -219,6 +219,47 @@ export function parseEntries(text: string, years: number[]): { entries: Calendar
   return { entries, errors };
 }
 
+/** Englische Namen, wenn der Kalender auf Englisch erstellt wird. */
+const HOLIDAY_NAMES_EN: Record<string, string> = {
+  Neujahr: "New Year's Day",
+  'Heilige Drei Könige': 'Epiphany',
+  'Internationaler Frauentag': "International Women's Day",
+  Karfreitag: 'Good Friday',
+  Ostersonntag: 'Easter Sunday',
+  Ostermontag: 'Easter Monday',
+  'Tag der Arbeit': 'Labour Day',
+  'Tag der Befreiung': 'Liberation Day',
+  'Christi Himmelfahrt': 'Ascension Day',
+  Pfingstsonntag: 'Whit Sunday',
+  Pfingstmontag: 'Whit Monday',
+  Fronleichnam: 'Corpus Christi',
+  'Mariä Himmelfahrt': 'Assumption Day',
+  Weltkindertag: "World Children's Day",
+  'Tag der Deutschen Einheit': 'German Unity Day',
+  Reformationstag: 'Reformation Day',
+  Allerheiligen: "All Saints' Day",
+  'Buß- und Bettag': 'Day of Repentance',
+  '1. Weihnachtstag': 'Christmas Day',
+  '2. Weihnachtstag': 'Boxing Day',
+  Muttertag: "Mother's Day",
+  'Beginn Sommerzeit': 'Summer time begins',
+  'Ende Sommerzeit': 'Summer time ends',
+  Heiligabend: 'Christmas Eve',
+  'Heiliger Abend': 'Christmas Eve',
+  Silvester: "New Year's Eve",
+  Staatsfeiertag: 'Labour Day',
+  Nationalfeiertag: 'National Day',
+  'Mariä Empfängnis': 'Immaculate Conception',
+  Christtag: 'Christmas Day',
+  Stefanitag: "St. Stephen's Day",
+  Berchtoldstag: "Berchtold's Day",
+  Auffahrt: 'Ascension Day',
+  Bundesfeier: 'Swiss National Day',
+  Weihnachten: 'Christmas Day',
+  Stephanstag: "St. Stephen's Day",
+  'Eidg. Dank-, Buss- und Bettag': 'Federal Day of Thanksgiving',
+};
+
 export interface DayAnnotations {
   /** Namen, die in der Zelle stehen (Feiertage, Gedenktage, eigene Einträge) */
   names: string[];
@@ -232,6 +273,7 @@ export function buildAnnotations(
   region: string,
   withObservances: boolean,
   entriesText: string,
+  nameLang: 'de' | 'en' = 'de',
 ): Map<string, DayAnnotations> {
   const map = new Map<string, DayAnnotations>();
   const get = (key: string) => {
@@ -245,7 +287,8 @@ export function buildAnnotations(
   for (const y of years) {
     for (const h of getHolidays(y, region, withObservances)) {
       const a = get(h.key);
-      if (!a.names.includes(h.name)) a.names.push(h.name);
+      const name = nameLang === 'en' ? (HOLIDAY_NAMES_EN[h.name] ?? h.name) : h.name;
+      if (!a.names.includes(name)) a.names.push(name);
       if (h.isPublic) a.highlight = true;
     }
   }
