@@ -126,12 +126,15 @@ Für die Subdomain braucht es einen DNS-Eintrag `monthgrid` (A/AAAA auf die IP d
 2. **Provider: GitHub** (einmalig die Dokploy-GitHub-App verbinden) → Repository `itsmaty/calcellprintgen`,
    Branch `main`, Build Path `/`.
 3. **Build Type: Dockerfile** → Dockerfile Path `Dockerfile`, Docker Context Path `.`.
-4. Optional **Environment → Build Time Arguments** (eine Zeile pro Wert):
+4. Optional Rybbit unter **Environment → Environment Settings** (eine Zeile pro Wert):
    ```
    RYBBIT_SITE_ID=deine-site-id
+   RYBBIT_SCRIPT_URL=https://rybbit.deine-domain/api/script.js
    ```
-   Bei selbst gehostetem Rybbit zusätzlich `RYBBIT_SCRIPT_URL=https://rybbit.deine-domain/api/script.js`.
-   Die Content-Security-Policy erlaubt die Rybbit-Adresse automatisch.
+   `RYBBIT_SCRIPT_URL` nur bei selbst gehostetem Rybbit (Standard: Rybbit Cloud). Der Container setzt das
+   Script beim Start in die Seiten ein und erlaubt die Rybbit-Adresse in der Content-Security-Policy – zum
+   Ändern reicht ein Neustart. Alternativ funktionieren dieselben Zeilen unter **Build Time Arguments**
+   (dann beim Build eingebaut).
 5. **Domains → Add Domain**: Host `monthgrid.verzonex.com`, Path `/`, **Container Port `80`**,
    HTTPS an, Certificate **Let's Encrypt**.
 6. **Deploy** klicken. Danach baut Dokploy bei jedem Push auf `main` automatisch neu (Auto Deploy).
@@ -156,7 +159,8 @@ Der Container lauscht auf `127.0.0.1:8080`. Für HTTPS davor einen Reverse-Proxy
 ## Statistik mit Rybbit
 
 Rybbit ist cookielos. Im Rybbit-Dashboard (Cloud oder selbst gehostet) eine Website anlegen und die Site-ID
-in `.env.production` oder als Build-Argument (Dokploy) eintragen, dann neu bauen. Das Script wird nur im Produktions-Build eingebunden – nicht
+(Wert von `data-site-id` bzw. `siteId` im Tracking-Snippet) eintragen – als Umgebungsvariable des Containers
+(z. B. Dokploy „Environment Settings“, wirkt beim Start), als Build-Argument oder in `.env.production`. Das Script wird nur im Produktions-Build eingebunden – nicht
 beim Entwickeln und nicht in der Einzeldatei. Die Content-Security-Policy im Docker-Image erlaubt die
 Rybbit-Domain automatisch.
 

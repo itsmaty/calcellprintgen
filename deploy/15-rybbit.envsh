@@ -1,0 +1,34 @@
+#!/bin/sh
+# Rybbit-Statistik beim Containerstart:
+# 1. Sind RYBBIT_SITE_ID (und optional RYBBIT_SCRIPT_URL) als Umgebungsvariablen gesetzt und wurde beim
+#    Build noch kein Script eingebunden, wird es jetzt in die HTML-Seiten eingesetzt.
+#    (Werte als Build-Argumente beim Build haben Vorrang – dann steht das Script schon in der Seite.)
+# 2. Die Rybbit-Adresse für die Content-Security-Policy wird aus der Seite gelesen (RYBBIT_ORIGIN).
+root=/usr/share/nginx/html
+
+site_id=$(printf '%s' "${RYBBIT_SITE_ID:-}" | tr -cd 'A-Za-z0-9_-')
+script_url="${RYBBIT_SCRIPT_URL:-https://app.rybbit.io/api/script.js}"
+if [ -n "$site_id" ] && printf '%s' "$script_url" | grep -Eq '^https?://[^"<> ]+$'; then
+  case "$script_url" in
+    *\?*) sep='&' ;;
+    *) sep='?' ;;
+  esac
+  tag="<script src=\"${script_url}${sep}siteId=${site_id}\" defer></script>"
+  escaped=$(printf '%s' "$tag" | sed -e 's/[&|\\]/\\&/g')
+  find "$root" -name '*.html' | while read -r f; do
+    if grep -q '<!--ANALYTICS-->' "$f"; then
+      sed -i "s|<!--ANALYTICS-->|${escaped}|" "$f" && echo "rybbit: Script in ${f#"$root"/} eingesetzt"
+    fi
+  done
+fi
+
+if [ -z "${RYBBIT_ORIGIN:-}" ]; then
+  src=""
+  if [ -f "$root/index.html" ]; then
+    src=$(grep -o 'src="https\{0,1\}://[^"]*/api/script\.js[^"]*"' "$root/index.html" | head -n 1 | sed -e 's/^src="//' -e 's/"$//')
+  fi
+  if [ -n "$src" ]; then
+    RYBBIT_ORIGIN=$(printf '%s' "$src" | sed -E 's#^(https?://[^/?#]+).*#\1#')
+  fi
+fi
+export RYBBIT_ORIGIN="${RYBBIT_ORIGIN:-}"

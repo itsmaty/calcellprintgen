@@ -22,10 +22,11 @@ RUN npm run build
 
 # ---- 2. Auslieferung ----
 FROM nginx:1.29-alpine
-# Die Rybbit-Adresse für die Content-Security-Policy wird beim Start aus der gebauten Seite gelesen
+# Rybbit: Script wird beim Start aus RYBBIT_SITE_ID/RYBBIT_SCRIPT_URL eingesetzt (falls nicht schon beim
+# Build geschehen); die Adresse für die Content-Security-Policy wird aus der Seite gelesen.
 COPY deploy/nginx.conf.template /etc/nginx/templates/default.conf.template
-COPY deploy/15-rybbit-origin.envsh /docker-entrypoint.d/15-rybbit-origin.envsh
-RUN chmod +x /docker-entrypoint.d/15-rybbit-origin.envsh
+COPY deploy/15-rybbit.envsh /docker-entrypoint.d/15-rybbit.envsh
+RUN chmod +x /docker-entrypoint.d/15-rybbit.envsh
 COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 80
 HEALTHCHECK --interval=30s --timeout=3s CMD wget -qO- http://127.0.0.1/ >/dev/null || exit 1

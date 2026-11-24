@@ -90,7 +90,10 @@ function jsonLd(lang: Lang, siteUrl: string, year: number): string {
 }
 
 function analyticsTag(opts: SeoOptions): string {
-  if (!opts.analytics || !opts.rybbitScriptUrl || !opts.rybbitSiteId) return '';
+  if (!opts.analytics) return '';
+  // Ohne Werte beim Build bleibt die Markierung stehen: Der Docker-Container setzt das Script dann beim
+  // Start aus den Umgebungsvariablen RYBBIT_SITE_ID / RYBBIT_SCRIPT_URL ein (deploy/15-rybbit.envsh).
+  if (!opts.rybbitScriptUrl || !opts.rybbitSiteId) return '<!--ANALYTICS-->';
   const sep = opts.rybbitScriptUrl.includes('?') ? '&' : '?';
   const src = `${opts.rybbitScriptUrl}${sep}siteId=${encodeURIComponent(opts.rybbitSiteId)}`;
   return `<script src="${escapeHtml(src)}" defer></script>`;
